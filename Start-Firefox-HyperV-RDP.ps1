@@ -1,3 +1,5 @@
+# When I start my day I need to open Firefox and a set number of pinned tabs, as well as start a local Hyper-V VM and connect to it over RDP. This script automates that.
+
 # Opening Powershell as Admin
 param([switch]$Elevated)
 
