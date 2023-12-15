@@ -28,4 +28,4 @@ Open-Tunnel; Start-Sleep -Seconds 10
 # sleep to wait for login input for tunnel, change windows proxy settings to the newly opened tunnel, and then start Edge
 Start-Proxy; Start-Sleep -Seconds 2
 
-Start-Firefox s
+Start-Firefox
