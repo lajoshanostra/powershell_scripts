@@ -1,4 +1,8 @@
 #### Function Library for start-work.ps1 and stop-work.ps1 ####
+
+# Replace all values below here at the start of the script
+# and the values for the URLs in the function Start-Firefox $urls array
+
 # Define Hyper-V VM details
 $vm = "VM Name" # <-- Replace with your VM's VM name
 $hostname = "Hostname" # <-- Replace with your VM's Hostname
@@ -12,6 +16,31 @@ $resolutionHeight = "1240"
 # Tunnel Details
 $tunnelSSHPort = "22"
 $socksPort = "8081"
+
+function Start-Firefox {
+    $urls = @( # Replace the URLs below with what you need. See next comment further as values also need to be changed
+        "https://duckduckgo.com",
+        "https://github.com",
+        "https://stackoverflow.com",
+        "https://stackexchange.com/sites#technology"
+
+    )
+
+    $firefoxCommand = "C:\Program Files\Mozilla Firefox\firefox.exe"  # <--- Replace with your FF Directory
+    $firefoxArguments = ($urls -join ' ')
+
+    Start-Process -FilePath $firefoxCommand -ArgumentList $firefoxArguments; Start-Sleep -Seconds 2
+
+    # Using $wshell.SendKeys to send ALT+P to pin tabs and CTRL+PGDN to move to the next tab 
+    # in a loop until all of the tabs I want are pinned
+    # Requires the FF Extension "Pin Unpin Tab" https://addons.mozilla.org/en-US/firefox/addon/pinunpin-tab/
+    $wshell = New-Object -ComObject wscript.shell
+    1..4 | ForEach-Object {     # Replace second value in 1..4 corresponding to how many tabs need to be pinned
+        $wshell.SendKeys('%{p}')
+        Start-Sleep -Milliseconds 500
+        $wshell.SendKeys('^{PGDN}')
+    }
+}
 
 function Start-HyperV {
     Start-VM -Name $vm
@@ -45,30 +74,6 @@ function start-Proxy {
     Write-Host "Proxy is now enabled" -ForegroundColor Yellow
 }
 
-function Start-Firefox {
-    $urls = @( # Replace the URLs below with what you need. See next comment further as values also need to be changed
-        "https://duckduckgo.com",
-        "https://github.com",
-        "https://stackoverflow.com",
-        "https://stackexchange.com/sites#technology"
-
-    )
-
-    $firefoxCommand = "C:\Program Files\Mozilla Firefox\firefox.exe"  # <--- Replace with your FF Directory
-    $firefoxArguments = ($urls -join ' ')
-
-    Start-Process -FilePath $firefoxCommand -ArgumentList $firefoxArguments; Start-Sleep -Seconds 2
-
-    # Using $wshell.SendKeys to send ALT+P to pin tabs and CTRL+PGDN to move to the next tab 
-    # in a loop until all of the tabs I want are pinned
-    # Requires the FF Extension "Pin Unpin Tab" https://addons.mozilla.org/en-US/firefox/addon/pinunpin-tab/
-    $wshell = New-Object -ComObject wscript.shell
-    1..4 | ForEach-Object {     # Replace second value in 1..4 corresponding to how many tabs need to be pinned
-        $wshell.SendKeys('%{p}')
-        Start-Sleep -Milliseconds 500
-        $wshell.SendKeys('^{PGDN}')
-    }
-}
 
 
 function Start-Edge {
