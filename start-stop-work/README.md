@@ -2,6 +2,12 @@
 
 This repository contains PowerShell scripts designed to automate the setup and teardown of a work environment. The scripts utilize various functions stored in `functions-work.ps1`.
 
+### Usage:
+
+1. Edit the values in `functions-work.ps1` to match your environment.
+2. Run `start-work.ps1` to set up your work environment.
+3. Run `stop-work.ps1` to tear down the work environment.
+
 ### `functions-work.ps1`
 
 This script serves as a function library for `start-work.ps1` and `stop-work.ps1`. Before using the main scripts, ensure that you replace placeholder values in the script to match your specific environment. Key variables to update include:
@@ -54,9 +60,3 @@ This script automates the teardown of the work environment. It performs the foll
 3. Stop Mozilla Firefox.
 4. Disable the proxy.
 5. Stop the Hyper-V VM and wait for it to reach the 'Off' state.
-
-### Usage:
-
-1. Edit the values in `functions-work.ps1` to match your environment.
-2. Run `start-work.ps1` to set up your work environment.
-3. Run `stop-work.ps1` to tear down the work environment.
