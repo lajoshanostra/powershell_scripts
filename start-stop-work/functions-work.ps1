@@ -23,7 +23,6 @@ function Start-Firefox {
         "https://github.com",
         "https://stackoverflow.com",
         "https://stackexchange.com/sites#technology"
-
     )
 
     $firefoxCommand = "C:\Program Files\Mozilla Firefox\firefox.exe"  # <--- Replace with your FF Directory
@@ -60,9 +59,7 @@ function Open-RDP {
 }
 
 function Open-Tunnel {
-
     Start-Process powershell -ArgumentList "-NoExit", "-Command ssh -vv -p $tunnelSSHport -D $socksPort $username@$hostname"
-
 }
 
 function start-Proxy {
@@ -73,8 +70,6 @@ function start-Proxy {
 
     Write-Host "Proxy is now enabled" -ForegroundColor Yellow
 }
-
-
 
 function Start-Edge {
     ## Function to start Edge instead of Firefox. Leaving this here and can call it from start-work.ps1 if wanted. 👎
